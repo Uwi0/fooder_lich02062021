@@ -8,6 +8,19 @@ class Home extends StatefulWidget{
 }
 
 class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
+
+  static List<Widget> pages = <Widget>[
+    Container(color: Colors.red,),
+    Container(color: Colors.green),
+    Container(color: Colors.blue,)
+  ];
+
+  void _onItemTapped(int index){
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,13 +28,10 @@ class _HomeState extends State<Home> {
         title: Text('Fooderlich', style: Theme.of(context).textTheme.headline6,),
         centerTitle: true,
       ),
-      body: Center(
-          child: Text(
-            'Let\'s get cooking ',
-            style: Theme.of(context).textTheme.headline1,
-          )
-      ),
+      body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         // ignore: deprecated_member_use
         selectedItemColor: Theme.of(context).textSelectionColor,
         items: <BottomNavigationBarItem>[
